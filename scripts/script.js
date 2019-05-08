@@ -3,19 +3,28 @@ let per_page = 20;
 let url;
 
 $(window).on("load", function () {
+    loadRegions();
     loadPokemonInfo();
 });
 
-$('#button-next, #button-previous').on("click", function() {
+$('.btn-pagination').on("click", function() {
     paginate(this);
 });
 
-function loadPokemonInfo(updated_url) {
+$('.region-content').on("click", function () {
+    let region = $(this).attr("data-region");
+    loadPokemonInfo(null, region);
+    console.log('test');
+});
 
-    if (updated_url === undefined) {
-        url = default_api_url + "pokemon/";
-    } else {
+function loadPokemonInfo(updated_url, updated_region) {
+
+    if (updated_url !== undefined) {
         url = updated_url;
+    } else if(updated_region !== undefined) {
+        url = default_api_url + "region/" + updated_region;
+    } else {
+        url = default_api_url + "pokemon/";
     }
     $.ajax({
         dataType: "json",
@@ -72,4 +81,26 @@ function paginate(that) {
     let url = $(that).attr('data-url');
     if (url === undefined) { return; }
     loadPokemonInfo(url);
+}
+
+function loadRegions() {
+    $.ajax({
+        dataType: "json",
+        url: default_api_url + "region/",
+    }).done(function (data) {
+        for (let i = 0; i < data.count; i++) {
+            let region = data.results[i].name;
+            $('.regions').append(
+                "<div class='single-region'>" +
+                    "<div class='region-content' data-region='" + i + "'>" + region + "</div>" +
+                "</div>"
+            );
+        }
+
+        $('.regions').append(
+            "<div class='single-region'>" +
+                "<div class='region-remove region-content' id='clear-region'>Clear filter</div>" +
+            "</div>"
+        );
+    });
 }
