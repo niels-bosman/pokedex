@@ -1,0 +1,119 @@
+.body {
+    background: whitesmoke;
+    font-family: Pokemon, serif !important;
+}
+
+.heading {
+    margin-top: 4em;
+    font-family: Pokemon, serif;
+}
+
+.heading__img {
+    margin: 0 auto;
+    display: block;
+}
+
+.regions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.regions .single-region {
+    text-transform: capitalize;
+    padding: 0 15px;
+    width: 100%;
+}
+
+.regions .single-region:first-child {
+    padding-left: 0;
+}
+
+.regions .single-region:last-child {
+    padding-right: 0;
+}
+
+.regions .single-region .region-content {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    background-color: rgba(0,0,0,.03);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.regions .single-region p {
+    text-align: center;
+    margin: 0;
+}
+
+.content {
+    margin: 4em 0;
+}
+
+.card-header {
+    text-transform: capitalize;
+    padding: 10px 15px;
+}
+
+.card-footer {
+    padding: 10px 15px;
+}
+
+.card-body {
+    padding: 1em;
+}
+
+.card-single {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.card-single .type {
+    text-transform: capitalize;
+}
+
+.pagination button {
+    margin-top: 3em;
+    width: 100%;
+    padding: 1em 0;
+}
+
+.pagination i {
+    font-size: 13px;
+}
+
+.pokemon-image {
+    margin: 0 auto;
+    display: block;
+}
+
+.col {
+    flex-basis: 20%;
+}
+
+.button-content {
+    margin: 0 auto;
+}
+
+.button-previous-wrap, .button-next-wrap {
+    max-width: 200px;
+}
+
+.button-previous-wrap {
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+}
+
+.button-previous-wrap i {
+    padding-right: .7em;
+}
+
+.button-next-wrap i {
+    padding-left: .7em;
+}
+
+.button-next-wrap {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
