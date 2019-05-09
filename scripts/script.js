@@ -44,14 +44,12 @@ function loadPokemonInfo(updated_url, updated_region) {
 
             removeLoadedPokemons();
 
-            for (var i = 0; i < per_page; i++) {
-
+            for (let i = 0; i < per_page; i++) {
                 let name = data.results[i].name;
                 let id = data.results[i].url.substr(4).split("/")[6];
 
                 addPokemonElement(id, name);
 
-                // Set the pokemon attributes and data with information inside url
                 $.ajax({
                     dataType: "json",
                     url: data.results[i].url,
@@ -60,10 +58,7 @@ function loadPokemonInfo(updated_url, updated_region) {
                     let type = data.types[0].type.name;
                     let id = data.id;
 
-                    $(".card-single[data-id='" + id + "']").attr('data-real-id', id);
-                    $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
-                    $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
-                    $(".card-single[data-id='" + id + "'] .type").text("#" + id);
+                    setCardAttributes(id, src, type);
                 });
             }
 
@@ -142,7 +137,14 @@ function addPokemonElement(id, name) {
                     "</a>" +
                 "</div>" +
                 "<div class='card-footer type'></div>" +
-        "</div>" +
+            "</div>" +
         "</div>"
     );
+}
+
+function setCardAttributes(id, src, type) {
+    $(".card-single[data-id='" + id + "']").attr('data-real-id', id);
+    $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
+    $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
+    $(".card-single[data-id='" + id + "'] .type").text("#" + id);
 }
