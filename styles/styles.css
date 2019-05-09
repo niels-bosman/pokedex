@@ -44,13 +44,18 @@
 }
 
 .regions .single-region .region-content:hover {
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.1);
 }
 
 .regions .single-region .region-remove {
     background: #7B62A3;
     color: white;
     transition: .2s ease;
+}
+
+.region-selected {
+    background: #53A4CF !important;
+    color: white !important;
 }
 
 .regions .single-region .region-remove:hover {

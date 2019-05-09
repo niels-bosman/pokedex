@@ -6,77 +6,84 @@ let region;
 $(window).on("load", () => {
     loadRegions();
     loadPokemonInfo();
+    loadEvents();
 });
 
-$('#clear-region').on("click", () => {
-    console.log('test');
-    region = undefined;
-    loadPokemonInfo(region);
-});
+function loadEvents() {
+    $('.btn-pagination').on("click", function () {
+        paginate(this);
+    });
 
-$('.btn-pagination').on("click", function() {
-    paginate(this);
-});
+    $(document).on("click", ".region-content__data", function () {
+        region = $(this).attr("data-region");
+        loadPokemonInfo(undefined, region);
+        removeActiveRegions();
+        setActiveRegion(this);
+    });
 
-$('.region-content').on("click", function () {
-    console.log('test');
-    region = $(this).attr("data-region");
-    loadPokemonInfo(null, region);
-});
+    $(document).on("click", "#clear-region", function () {
+        region = undefined;
+        loadPokemonInfo(undefined, region);
+        removeActiveRegions()
+    });
+}
 
 function loadPokemonInfo(updated_url, updated_region) {
 
     if (updated_url !== undefined) {
         url = updated_url;
-    } else if(updated_region !== undefined) {
-        url = default_api_url + "region/" + updated_region;
     } else {
         url = default_api_url + "pokemon/";
     }
-    $.ajax({
-        dataType: "json",
-        url: url,
-    }).done(function (data) {
 
-        $('.card-wrap').remove();
+    if(updated_region === undefined) {
+        $.ajax({
+            dataType: "json",
+            url: url,
+        }).done(function (data) {
 
-        for (var i = 0; i < per_page; i++) {
+            $('.card-wrap').remove();
 
-            let name = data.results[i].name;
-            let id = data.results[i].url.substr(4).split("/")[6];
+            for (var i = 0; i < per_page; i++) {
 
-            $('.content').append(
-                "<div class='col card-wrap'>" +
-                    "<div class='card card-single' data-id='" + id + "'>" +
-                        "<div class='card-header'>" + name + "</div>" +
+                let name = data.results[i].name;
+                let id = data.results[i].url.substr(4).split("/")[6];
+
+                $('.content').append(
+                    "<div class='col card-wrap'>" +
+                        "<div class='card card-single' data-id='" + id + "'>" +
+                            "<div class='card-header'>" + name + "</div>" +
                             "<div class='card-body'>" +
                                 "<a class='pokemon-link'>" +
                                     "<img draggable='false' class='pokemon-image'>" +
                                 "</a>" +
                             "</div>" +
-                        "<div class='card-footer type'></div>" +
-                    "</div>" +
-                "</div>"
-            );
+                            "<div class='card-footer type'></div>" +
+                        "</div>" +
+                    "</div>"
+                );
 
-            // Set the pokemon attributes and data with information inside url
-            $.ajax({
-                dataType: "json",
-                url: data.results[i].url,
-            }).done(function (data) {
-                let src = data.sprites.front_default;
-                let type = data.types[0].type.name;
-                let id = data.id;
+                // Set the pokemon attributes and data with information inside url
+                $.ajax({
+                    dataType: "json",
+                    url: data.results[i].url,
+                }).done(function (data) {
+                    let src = data.sprites.front_default;
+                    let type = data.types[0].type.name;
+                    let id = data.id;
 
-                $(".card-single[data-id='" + id + "']").attr('data-real-id', id);
-                $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
-                $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
-                $(".card-single[data-id='" + id + "'] .type").text("#" + id);
-            });
-        }
+                    $(".card-single[data-id='" + id + "']").attr('data-real-id', id);
+                    $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
+                    $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
+                    $(".card-single[data-id='" + id + "'] .type").text("#" + id);
+                });
+            }
 
-        loadButtons(data.previous, data.next);
-    });
+            loadButtons(data.previous, data.next);
+        });
+    } else {
+        $('.card-wrap').remove();
+    }
 }
 
 function loadButtons(previous_url, next_url) {
@@ -95,19 +102,29 @@ function loadRegions() {
         dataType: "json",
         url: default_api_url + "region/",
     }).done(function (data) {
+        let regions = $('.regions');
+
         for (let i = 0; i < data.count; i++) {
             let region = data.results[i].name;
-            $('.regions').append(
+            $(regions).append(
                 "<div class='single-region'>" +
-                    "<div class='region-content' data-region='" + i + "'>" + region + "</div>" +
+                    "<div class='region-content region-content__data' data-region='" + i + "'>" + region + "</div>" +
                 "</div>"
             );
         }
 
-        $('.regions').append(
+        $(regions).append(
             "<div class='single-region'>" +
                 "<div class='region-remove region-content' id='clear-region'>Clear filter</div>" +
             "</div>"
         );
     });
+}
+
+function setActiveRegion(that) {
+    $(that).addClass('region-selected');
+}
+
+function removeActiveRegions() {
+    $('.region-content__data').removeClass('region-selected');
 }
