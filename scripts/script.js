@@ -15,14 +15,14 @@ function loadEvents() {
     });
 
     $(document).on("click", ".region-content__data", function () {
-        region = $(this).attr("data-region");
+        setRegion(this);
         loadPokemonInfo(undefined, region);
         removeActiveRegions();
         setActiveRegion(this);
     });
 
     $(document).on("click", "#clear-region", function () {
-        region = undefined;
+        unsetRegion();
         loadPokemonInfo(undefined, region);
         removeActiveRegions()
     });
@@ -36,7 +36,7 @@ function loadPokemonInfo(updated_url, updated_region) {
         url = default_api_url + "pokemon/";
     }
 
-    if(updated_region === undefined) {
+    if (updated_region === undefined) {
         $.ajax({
             dataType: "json",
             url: url,
@@ -93,7 +93,9 @@ function loadButtons(previous_url, next_url) {
 
 function paginate(that) {
     let url = $(that).attr('data-url');
-    if (url === undefined) { return; }
+    if (url === undefined) {
+        return;
+    }
     loadPokemonInfo(url);
 }
 
@@ -127,4 +129,12 @@ function setActiveRegion(that) {
 
 function removeActiveRegions() {
     $('.region-content__data').removeClass('region-selected');
+}
+
+function setRegion(that) {
+    region = $(that).attr("data-region");
+}
+
+function unsetRegion() {
+    region = undefined;
 }
