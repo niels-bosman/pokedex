@@ -16,15 +16,15 @@ function loadEvents() {
 
     $(document).on("click", ".region-content__data", function () {
         setRegion(this);
-        loadPokemonInfo(undefined, region);
         removeActiveRegions();
         setActiveRegion(this);
+        loadPokemonInfo(undefined, region);
     });
 
     $(document).on("click", "#clear-region", function () {
         unsetRegion();
+        removeActiveRegions();
         loadPokemonInfo(undefined, region);
-        removeActiveRegions()
     });
 }
 
@@ -40,34 +40,22 @@ function loadPokemonInfo(updated_url, updated_region) {
         $.ajax({
             dataType: "json",
             url: url,
-        }).done(function (data) {
+        }).done((data) => {
 
-            $('.card-wrap').remove();
+            removeLoadedPokemons();
 
             for (var i = 0; i < per_page; i++) {
 
                 let name = data.results[i].name;
                 let id = data.results[i].url.substr(4).split("/")[6];
 
-                $('.content').append(
-                    "<div class='col card-wrap'>" +
-                        "<div class='card card-single' data-id='" + id + "'>" +
-                            "<div class='card-header'>" + name + "</div>" +
-                            "<div class='card-body'>" +
-                                "<a class='pokemon-link'>" +
-                                    "<img draggable='false' class='pokemon-image'>" +
-                                "</a>" +
-                            "</div>" +
-                            "<div class='card-footer type'></div>" +
-                        "</div>" +
-                    "</div>"
-                );
+                addPokemonElement(id, name);
 
                 // Set the pokemon attributes and data with information inside url
                 $.ajax({
                     dataType: "json",
                     url: data.results[i].url,
-                }).done(function (data) {
+                }).done((data) => {
                     let src = data.sprites.front_default;
                     let type = data.types[0].type.name;
                     let id = data.id;
@@ -103,7 +91,7 @@ function loadRegions() {
     $.ajax({
         dataType: "json",
         url: default_api_url + "region/",
-    }).done(function (data) {
+    }).done((data) => {
         let regions = $('.regions');
 
         for (let i = 0; i < data.count; i++) {
@@ -135,6 +123,26 @@ function setRegion(that) {
     region = $(that).attr("data-region");
 }
 
+function removeLoadedPokemons() {
+    $('.card-wrap').remove();
+}
+
 function unsetRegion() {
     region = undefined;
+}
+
+function addPokemonElement(id, name) {
+    $('.content').append(
+        "<div class='col card-wrap'>" +
+            "<div class='card card-single' data-id='" + id + "'>" +
+                "<div class='card-header'>" + name + "</div>" +
+                "<div class='card-body'>" +
+                    "<a class='pokemon-link'>" +
+                        "<img draggable='false' class='pokemon-image'>" +
+                    "</a>" +
+                "</div>" +
+                "<div class='card-footer type'></div>" +
+        "</div>" +
+        "</div>"
+    );
 }
