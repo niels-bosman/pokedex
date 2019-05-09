@@ -33,11 +33,7 @@ function loadEvents() {
 
 function loadPokemonInfo(updated_url, updated_region) {
 
-    if (updated_url !== undefined) {
-        url = updated_url;
-    } else {
-        url = default_api_url + "pokemon/";
-    }
+    setAPIUrl(updated_url);
 
     if (updated_region === undefined) {
         $.ajax({
@@ -79,9 +75,7 @@ function loadButtons(previous_url, next_url) {
 
 function paginate(that) {
     let url = $(that).attr('data-url');
-    if (url === undefined) {
-        return;
-    }
+    if (url === undefined) { return; }
     loadPokemonInfo(url);
 }
 
@@ -109,24 +103,18 @@ function loadRegions() {
     });
 }
 
-function setActiveRegion(that) {
-    $(that).addClass('region-selected');
-}
+function setActiveRegion(that) { $(that).addClass('region-selected'); }
+function removeActiveRegions() { $('.region-content__data').removeClass('region-selected'); }
+function setRegion(that) { region = $(that).attr("data-region"); }
+function removeLoadedPokemons() { $('.card-wrap').remove(); }
+function unsetRegion() { region = undefined; }
 
-function removeActiveRegions() {
-    $('.region-content__data').removeClass('region-selected');
-}
-
-function setRegion(that) {
-    region = $(that).attr("data-region");
-}
-
-function removeLoadedPokemons() {
-    $('.card-wrap').remove();
-}
-
-function unsetRegion() {
-    region = undefined;
+function setAPIUrl(updated_url) {
+    if (updated_url !== undefined) {
+        url = updated_url;
+    } else {
+        url = default_api_url + "pokemon/";
+    }
 }
 
 function addPokemonElement(id, name) {
