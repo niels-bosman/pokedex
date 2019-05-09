@@ -1,13 +1,16 @@
 let default_api_url = "https://pokeapi.co/api/v2/";
 let per_page = 20;
-let url;
-let region;
+let url, region;
 
 $(window).on("load", () => {
+    initialize();
+});
+
+function initialize() {
     loadRegions();
     loadPokemonInfo();
     loadEvents();
-});
+}
 
 function loadEvents() {
     $('.btn-pagination').on("click", function () {
@@ -21,7 +24,7 @@ function loadEvents() {
         loadPokemonInfo(undefined, region);
     });
 
-    $(document).on("click", "#clear-region", function () {
+    $(document).on("click", "#clear-region", () => {
         unsetRegion();
         removeActiveRegions();
         loadPokemonInfo(undefined, region);
@@ -65,7 +68,7 @@ function loadPokemonInfo(updated_url, updated_region) {
             loadButtons(data.previous, data.next);
         });
     } else {
-        $('.card-wrap').remove();
+        removeLoadedPokemons();
     }
 }
 

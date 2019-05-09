@@ -34,9 +34,9 @@
 }
 
 .regions .single-region .region-content {
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
-    background-color: rgba(0,0,0,.03);
+    background-color: rgba(0, 0, 0, .03);
     padding: 10px;
     cursor: pointer;
     text-align: center;
@@ -44,22 +44,22 @@
 }
 
 .regions .single-region .region-content:hover {
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
 }
 
 .regions .single-region .region-remove {
-    background: #7B62A3;
-    color: white;
+    background: #FFCE31;
+    color: black;
     transition: .2s ease;
 }
 
 .region-selected {
-    background: #53A4CF !important;
+    background: #2E2E9A !important;
     color: white !important;
 }
 
 .regions .single-region .region-remove:hover {
-    background: #5d4482;
+    background: #D9A930;
 }
 
 .regions .single-region p {
