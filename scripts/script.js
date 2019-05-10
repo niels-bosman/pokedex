@@ -64,7 +64,7 @@ function loadPokemonInfo(updated_url, updated_region) {
             loadButtons(data.previous, data.next);
         });
     } else {
-        removeLoadedPokemons();
+        console.log("Region selected!");
     }
 }
 
@@ -80,9 +80,11 @@ function paginate(that) {
 }
 
 function loadRegions() {
+    setAPIUrl("region/");
+
     $.ajax({
         dataType: "json",
-        url: default_api_url + "region/",
+        url: url,
     }).done((data) => {
         let regions = $('.regions');
 
@@ -125,7 +127,7 @@ function unsetRegion() {
 
 function setAPIUrl(updated_url) {
     if (updated_url !== undefined) {
-        url = updated_url;
+        url = default_api_url + updated_url;
     } else {
         url = default_api_url + "pokemon/";
     }
