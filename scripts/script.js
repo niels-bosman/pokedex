@@ -69,12 +69,12 @@ function loadPokemonInfo(updated_url, updated_region) {
 }
 
 function loadButtons(previous_url, next_url) {
-    $('#button-previous').attr('data-url', previous_url);
-    $('#button-next').attr('data-url', next_url);
+    $('#button-previous').data('url', previous_url);
+    $('#button-next').data('url', next_url);
 }
 
 function paginate(that) {
-    let url = $(that).attr('data-url');
+    let url = $(that).data('url');
     if (url === undefined) { return; }
     loadPokemonInfo(url);
 }
@@ -105,7 +105,7 @@ function loadRegions() {
 
 function setActiveRegion(that) { $(that).addClass('region-selected'); }
 function removeActiveRegions() { $('.region-content__data').removeClass('region-selected'); }
-function setRegion(that) { region = $(that).attr("data-region"); }
+function setRegion(that) { region = $(that).data("region"); }
 function removeLoadedPokemons() { $('.card-wrap').remove(); }
 function unsetRegion() { region = undefined; }
 
@@ -134,7 +134,7 @@ function addPokemonElement(id, name) {
 }
 
 function setCardAttributes(id, src, type) {
-    $(".card-single[data-id='" + id + "']").attr('data-real-id', id);
+    $(".card-single[data-id='" + id + "']").data('real-id', id);
     $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
     $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
     $(".card-single[data-id='" + id + "'] .type").text("#" + id);
