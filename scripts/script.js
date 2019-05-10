@@ -13,7 +13,7 @@ function initialize() {
 }
 
 function loadEvents() {
-    $('.btn-pagination').on("click", function () {
+    $(document).on("click", ".btn-pagination", function () {
         paginate(this);
     });
 
@@ -103,11 +103,25 @@ function loadRegions() {
     });
 }
 
-function setActiveRegion(that) { $(that).addClass('region-selected'); }
-function removeActiveRegions() { $('.region-content__data').removeClass('region-selected'); }
-function setRegion(that) { region = $(that).data("region"); }
-function removeLoadedPokemons() { $('.card-wrap').remove(); }
-function unsetRegion() { region = undefined; }
+function setActiveRegion(that) {
+    $(that).addClass('region-selected');
+}
+
+function removeActiveRegions() {
+    $('.region-content__data').removeClass('region-selected');
+}
+
+function setRegion(that) {
+    region = $(that).data("region");
+}
+
+function removeLoadedPokemons() {
+    $('.card-wrap').remove();
+}
+
+function unsetRegion() {
+    region = undefined;
+}
 
 function setAPIUrl(updated_url) {
     if (updated_url !== undefined) {
