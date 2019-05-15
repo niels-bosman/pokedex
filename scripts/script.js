@@ -69,22 +69,21 @@ function loadPokemonInfo(updated_url, updated_region) {
 }
 
 function loadButtons(previous_url, next_url) {
-    $('#button-previous').data('url', previous_url);
-    $('#button-next').data('url', next_url);
+    $('#button-previous').attr('data-url', previous_url);
+    $('#button-next').attr('data-url', next_url);
 }
 
 function paginate(that) {
-    let url = $(that).data('url');
+    let url = $(that).attr('data-url');
     if (url === undefined) { return; }
     loadPokemonInfo(url);
 }
 
 function loadRegions() {
-    setAPIUrl("region/");
 
     $.ajax({
         dataType: "json",
-        url: url,
+        url: default_api_url + "region/",
     }).done((data) => {
         let regions = $('.regions');
 
@@ -114,7 +113,7 @@ function removeActiveRegions() {
 }
 
 function setRegion(that) {
-    region = $(that).data("region");
+    region = $(that).attr("data-region");
 }
 
 function removeLoadedPokemons() {
@@ -127,7 +126,7 @@ function unsetRegion() {
 
 function setAPIUrl(updated_url) {
     if (updated_url !== undefined) {
-        url = default_api_url + updated_url;
+        url = updated_url;
     } else {
         url = default_api_url + "pokemon/";
     }
@@ -136,7 +135,7 @@ function setAPIUrl(updated_url) {
 function addPokemonElement(id, name) {
     $('.content').append(
         "<div class='col card-wrap'>" +
-            "<div class='card card-single' data-id='" + id + "'>" +
+            "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
                 "<div class='card-header'>" + name + "</div>" +
                 "<div class='card-body'>" +
                     "<a class='pokemon-link'>" +
@@ -150,7 +149,6 @@ function addPokemonElement(id, name) {
 }
 
 function setCardAttributes(id, src, type) {
-    $(".card-single[data-id='" + id + "']").data('real-id', id);
     $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
     $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
     $(".card-single[data-id='" + id + "'] .type").text("#" + id);
