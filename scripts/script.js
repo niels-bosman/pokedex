@@ -15,6 +15,7 @@ function initialize() {
 function loadEvents() {
     $(document).on("click", ".btn-pagination", function () {
         paginate(this);
+        scrollToTop();
     });
 
     $(document).on("click", ".region-content__data", function () {
@@ -152,4 +153,10 @@ function setCardAttributes(id, src, type) {
     $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
     $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
     $(".card-single[data-id='" + id + "'] .type").text("#" + id);
+}
+
+function scrollToTop() {
+    $('html, body').animate({
+        scrollTop: "0px"
+    }, 600);
 }
