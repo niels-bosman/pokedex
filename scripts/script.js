@@ -8,7 +8,7 @@ $(window).on("load", () => {
 
 function initialize() {
     loadRegions();
-    loadPokemonInfo();
+    checkPageToLoad();
     loadEvents();
 }
 
@@ -30,6 +30,23 @@ function loadEvents() {
         removeActiveRegions();
         loadPokemonInfo(undefined, region);
     });
+}
+
+function checkPageToLoad() {
+    if (getUrlVars().id !== undefined) {
+        loadPokemonInfoDetailPage(getUrlVars().id);
+    } else {
+        loadPokemonInfo();
+    }
+}
+
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m,key,value) {
+            vars[key] = value;
+        });
+    return vars;
 }
 
 function loadPokemonInfo(updated_url, updated_region) {
@@ -67,6 +84,27 @@ function loadPokemonInfo(updated_url, updated_region) {
     } else {
         console.log("Region selected!");
     }
+}
+
+function loadPokemonInfoDetailPage(id) {
+    setAPIUrl(default_api_url + "pokemon/" + id);
+
+    $.ajax({
+        dataType: "json",
+        url: url,
+    }).done((data) => {
+        console.log(data);
+        let id = data.id;
+        let name = data.name;
+        let sprite = data.sprites.front_default;
+        let type = data.types[0].type.name;
+        let baseAbility = data.abilities[0].ability.name;
+        let secondAbility = data.abilities[1].ability.name;
+
+        addPokemonDetailElement(id, name);
+        setCardAttributes(id, sprite, type);
+    });
+
 }
 
 function loadButtons(previous_url, next_url) {
@@ -139,9 +177,23 @@ function addPokemonElement(id, name) {
             "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
                 "<div class='card-header'>" + name + "</div>" +
                 "<div class='card-body'>" +
-                    "<a class='pokemon-link'>" +
+                    "<a class='pokemon-link' href='?id=" + id + "'>" +
                         "<img draggable='false' class='pokemon-image'>" +
                     "</a>" +
+                "</div>" +
+                "<div class='card-footer type'></div>" +
+            "</div>" +
+        "</div>"
+    );
+}
+
+function addPokemonDetailElement(id, name) {
+    $('.content').append(
+        "<div class='col card-wrap'>" +
+            "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
+                "<div class='card-header'>" + name + "</div>" +
+                "<div class='card-body'>" +
+                    "<img draggable='false' class='pokemon-image'>" +
                 "</div>" +
                 "<div class='card-footer type'></div>" +
             "</div>" +
