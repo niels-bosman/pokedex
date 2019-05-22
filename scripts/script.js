@@ -101,7 +101,16 @@ function loadPokemonInfoDetailPage(id) {
         let baseAbility = data.abilities[0].ability.name;
         let secondAbility = data.abilities[1].ability.name;
 
-        addPokemonDetailElement(id, name, type, baseAbility, secondAbility);
+
+        var stat_value = [];
+        var stat_name = [];
+
+        for (let i = 0; i < 6; i++) {
+            stat_value[i] = data.stats[i].base_stat;
+            stat_name[i] = data.stats[i].stat.name;
+        }
+
+        addPokemonDetailElement(id, name, type, baseAbility, secondAbility, stat_value[0], stat_name[0], stat_value[1], stat_name[1], stat_value[2], stat_name[2], stat_value[3], stat_name[3], stat_value[4], stat_name[4], stat_value[5], stat_name[5]);
         setCardAttributes(id, sprite, type);
     });
 
@@ -187,14 +196,14 @@ function addPokemonElement(id, name) {
     );
 }
 
-function addPokemonDetailElement(id, name, type, ability1, ability2) {
+function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, stat1name, stat2val, stat2name, stat3val, stat3name, stat4val, stat4name, stat5val, stat5name, stat6val, stat6name) {
     $('.content').append(
         "<div class='col card-wrap'>" +
             "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
                 "<div class='card-header'>" + name + "</div>" +
                 "<div class='card-body'>" +
                     "<div class='row'>" +
-                        "<div class='col-md-2'>" +
+                        "<div class='col-md-1'>" +
                             "<img draggable='false' class='pokemon-image'>" +
                         "</div>" +
                         "<div class='col-md-2'>" +
@@ -205,7 +214,7 @@ function addPokemonDetailElement(id, name, type, ability1, ability2) {
                                 "<span class='background-color-" + type + "'>" + type + "</span>" +
                             "</div>" +
                         "</div>" +
-                        "<div class='col-md-3'>" +
+                        "<div class='col-md-4'>" +
                             "<div>" +
                                 "<strong>Abilities</strong>" +
                             "</div>" +
@@ -217,6 +226,34 @@ function addPokemonDetailElement(id, name, type, ability1, ability2) {
                         "<div class='col-md-4'>" +
                             "<div>" +
                                 "<strong>Base stats</strong>" +
+                            "</div>" +
+                            "<div class='pokemon-stats'>" +
+                                "<div class='row'>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat1val + "</p>" +
+                                        "<p>" + stat1name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat2val + "</p>" +
+                                        "<p>" + stat2name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat3val + "</p>" +
+                                        "<p>" + stat3name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat4val + "</p>" +
+                                        "<p>" + stat4name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat5val + "</p>" +
+                                        "<p>" + stat5name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col'>" +
+                                        "<p>" + stat6val + "</p>" +
+                                        "<p>" + stat6name + "</p>" +
+                                    "</div>" +
+                                "</div>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +

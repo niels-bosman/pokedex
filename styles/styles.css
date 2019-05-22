@@ -148,8 +148,8 @@
     bottom: 15px;
 }
 
-.pokemon-type, .pokemon-abilities {
-    margin-top: 10px;
+.pokemon-type, .pokemon-abilities, .pokemon-stats {
+    margin-top: 20px;
 }
 
 .pokemon-type span {
@@ -159,8 +159,36 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+.pokemon-abilities {
+    display: flex;
+}
 
 .pokemon-abilities p {
-    margin-bottom: 5px !important;
+    margin: 0 10px !important;
+    text-transform: capitalize;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .06);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    width: 50%;
+    display: inline-block;
+    flex-basis: 50%;
+}
+
+.pokemon-stats .col {
+    flex-basis: 33%;
+}
+
+.pokemon-stats .col p:first-child {
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .06);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.pokemon-stats .col p {
     text-transform: capitalize;
 }
