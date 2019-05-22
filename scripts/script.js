@@ -7,7 +7,6 @@ $(window).on("load", () => {
 });
 
 function initialize() {
-    loadRegions();
     checkPageToLoad();
     loadEvents();
 }
@@ -33,9 +32,10 @@ function loadEvents() {
 }
 
 function checkPageToLoad() {
-    if (getUrlVars().id !== undefined) {
+    if (getUrlVars().id) {
         loadPokemonInfoDetailPage(getUrlVars().id);
     } else {
+        loadRegions();
         loadPokemonInfo();
     }
 }
@@ -101,7 +101,7 @@ function loadPokemonInfoDetailPage(id) {
         let baseAbility = data.abilities[0].ability.name;
         let secondAbility = data.abilities[1].ability.name;
 
-        addPokemonDetailElement(id, name);
+        addPokemonDetailElement(id, name, type, baseAbility, secondAbility);
         setCardAttributes(id, sprite, type);
     });
 
@@ -187,13 +187,39 @@ function addPokemonElement(id, name) {
     );
 }
 
-function addPokemonDetailElement(id, name) {
+function addPokemonDetailElement(id, name, type, ability1, ability2) {
     $('.content').append(
         "<div class='col card-wrap'>" +
             "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
                 "<div class='card-header'>" + name + "</div>" +
                 "<div class='card-body'>" +
-                    "<img draggable='false' class='pokemon-image'>" +
+                    "<div class='row'>" +
+                        "<div class='col-md-2'>" +
+                            "<img draggable='false' class='pokemon-image'>" +
+                        "</div>" +
+                        "<div class='col-md-2'>" +
+                            "<div>" +
+                                "<strong>Type</strong>" +
+                            "</div>" +
+                            "<div class='pokemon-type'>" +
+                                "<span class='background-color-" + type + "'>" + type + "</span>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='col-md-3'>" +
+                            "<div>" +
+                                "<strong>Abilities</strong>" +
+                            "</div>" +
+                            "<div class='pokemon-abilities'>" +
+                                "<p>"+ ability1 +"</p>" +
+                                "<p>"+ ability2 +"</p>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class='col-md-4'>" +
+                            "<div>" +
+                                "<strong>Base stats</strong>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
                 "</div>" +
                 "<div class='card-footer type'></div>" +
             "</div>" +
