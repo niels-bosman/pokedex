@@ -203,7 +203,7 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
                 "<div class='card-header'>" + name + "</div>" +
                 "<div class='card-body'>" +
                     "<div class='row'>" +
-                        "<div class='col-md-1'>" +
+                        "<div class='col-md-2'>" +
                             "<img draggable='false' class='pokemon-image'>" +
                         "</div>" +
                         "<div class='col-md-2'>" +
@@ -211,45 +211,45 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
                                 "<strong>Type</strong>" +
                             "</div>" +
                             "<div class='pokemon-type'>" +
-                                "<span class='background-color-" + type + "'>" + type + "</span>" +
+                                "<p class='background-color-" + type + "'>" + type + "</p>" +
                             "</div>" +
                         "</div>" +
                         "<div class='col-md-4'>" +
                             "<div>" +
-                                "<strong>Abilities</strong>" +
+                                "<strong>Moves</strong>" +
                             "</div>" +
                             "<div class='pokemon-abilities'>" +
                                 "<p>"+ ability1 +"</p>" +
                                 "<p>"+ ability2 +"</p>" +
                             "</div>" +
                         "</div>" +
-                        "<div class='col-md-4'>" +
+                        "<div class='col-md-3'>" +
                             "<div>" +
                                 "<strong>Base stats</strong>" +
                             "</div>" +
                             "<div class='pokemon-stats'>" +
                                 "<div class='row'>" +
-                                    "<div class='col'>" +
+                                    "<div class='col spd'>" +
                                         "<p>" + stat1val + "</p>" +
                                         "<p>" + stat1name + "</p>" +
                                     "</div>" +
-                                    "<div class='col'>" +
+                                    "<div class='col spcd'>" +
                                         "<p>" + stat2val + "</p>" +
                                         "<p>" + stat2name + "</p>" +
                                     "</div>" +
-                                    "<div class='col'>" +
+                                    "<div class='col spa'>" +
                                         "<p>" + stat3val + "</p>" +
                                         "<p>" + stat3name + "</p>" +
                                     "</div>" +
-                                    "<div class='col'>" +
+                                    "<div class='col def'>" +
                                         "<p>" + stat4val + "</p>" +
                                         "<p>" + stat4name + "</p>" +
                                     "</div>" +
-                                    "<div class='col'>" +
+                                    "<div class='col att'>" +
                                         "<p>" + stat5val + "</p>" +
                                         "<p>" + stat5name + "</p>" +
                                     "</div>" +
-                                    "<div class='col'>" +
+                                    "<div class='col hp'>" +
                                         "<p>" + stat6val + "</p>" +
                                         "<p>" + stat6name + "</p>" +
                                     "</div>" +

@@ -152,13 +152,14 @@
     margin-top: 20px;
 }
 
-.pokemon-type span {
+.pokemon-type p {
     text-transform: capitalize;
-    padding: 5px 10px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
+
 .pokemon-abilities {
     display: flex;
 }
@@ -183,7 +184,6 @@
 .pokemon-stats .col p:first-child {
     margin-bottom: 5px;
     padding: 10px;
-    background-color: rgba(0, 0, 0, .06);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -191,4 +191,32 @@
 
 .pokemon-stats .col p {
     text-transform: capitalize;
+}
+
+.pokemon-stats .col p:nth-child(2) {
+    margin-bottom: 30px;
+}
+
+.pokemon-stats .spd p:first-child {
+    background: #FA92B2;
+}
+
+.pokemon-stats .spcd p:first-child {
+    background: #A7DB8D;
+}
+
+.pokemon-stats .spa p:first-child {
+    background: #9DB7F5;
+}
+
+.pokemon-stats .def p:first-child {
+    background: #FAE078;
+}
+
+.pokemon-stats .att p:first-child {
+    background: #F5AC78;
+}
+
+.pokemon-stats .hp p:first-child {
+    background: #FF5959;
 }
