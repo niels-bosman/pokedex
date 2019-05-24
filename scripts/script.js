@@ -106,7 +106,6 @@ function loadPokemonInfoDetailPage(id) {
         dataType: "json",
         url: url,
     }).done((data) => {
-        console.log(data);
         let id = data.id;
         let name = data.name;
         let sprite = data.sprites.front_default;
@@ -204,15 +203,15 @@ function setAPIUrl(updated_url) {
 function addPokemonElement(id, name) {
     $('.content').append(
         "<div class='col card-wrap'>" +
-            "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
-                "<div class='card-header'>" + name + "</div>" +
-                "<div class='card-body'>" +
-                    "<a class='pokemon-link' href='?id=" + id + "'>" +
+            "<a class='pokemon-link' href='?id=" + id + "'>" +
+                "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
+                    "<div class='card-header'>" + name + "</div>" +
+                    "<div class='card-body'>" +
                         "<img draggable='false' class='pokemon-image'>" +
-                    "</a>" +
+                    "</div>" +
+                    "<div class='card-footer type'></div>" +
                 "</div>" +
-                "<div class='card-footer type'></div>" +
-            "</div>" +
+            "</a>" +
         "</div>"
     );
 }
@@ -301,7 +300,6 @@ function scrollToTop() {
 }
 
 function showBackButton() {
-    console.log('test');
     $('.go-back').addClass('active');
 }
 
