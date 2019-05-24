@@ -138,6 +138,14 @@
     padding-right: .7em;
 }
 
+.card-body strong {
+    font-weight: bolder;
+    border-bottom: solid lightgrey 1px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: left;
+}
+
 .button-next-wrap i {
     padding-left: .7em;
 }
@@ -189,12 +197,41 @@
     border-radius: 5px;
 }
 
+.go-back {
+    padding: 0 15px;
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.go-back a {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+    background-color: rgba(0, 0, 0, .03);
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: center;
+    color: black;
+}
+
+.go-back a:hover {
+    text-decoration: none;
+}
+
+.go-back a i {
+    margin-right: 10px;
+}
+
 .pokemon-stats .col p {
     text-transform: capitalize;
+    font-size: 14px;
+    min-height: 44px;
 }
 
 .pokemon-stats .col p:nth-child(2) {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 .pokemon-stats .spd p:first-child {

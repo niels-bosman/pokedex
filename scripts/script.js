@@ -34,6 +34,7 @@ function loadEvents() {
 function checkPageToLoad() {
     if (getUrlVars().id) {
         loadPokemonInfoDetailPage(getUrlVars().id);
+        showBackButton();
     } else {
         loadRegions();
         loadPokemonInfo();
@@ -204,6 +205,9 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
                 "<div class='card-body'>" +
                     "<div class='row'>" +
                         "<div class='col-md-2'>" +
+                            "<div>" +
+                                "<strong>Pokemon</strong>" +
+                            "</div>" +
                             "<img draggable='false' class='pokemon-image'>" +
                         "</div>" +
                         "<div class='col-md-2'>" +
@@ -223,35 +227,35 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
                                 "<p>"+ ability2 +"</p>" +
                             "</div>" +
                         "</div>" +
-                        "<div class='col-md-3'>" +
+                        "<div class='col-md-4'>" +
                             "<div>" +
                                 "<strong>Base stats</strong>" +
                             "</div>" +
                             "<div class='pokemon-stats'>" +
                                 "<div class='row'>" +
-                                    "<div class='col spd'>" +
-                                        "<p>" + stat1val + "</p>" +
-                                        "<p>" + stat1name + "</p>" +
-                                    "</div>" +
-                                    "<div class='col spcd'>" +
-                                        "<p>" + stat2val + "</p>" +
-                                        "<p>" + stat2name + "</p>" +
-                                    "</div>" +
-                                    "<div class='col spa'>" +
-                                        "<p>" + stat3val + "</p>" +
-                                        "<p>" + stat3name + "</p>" +
-                                    "</div>" +
-                                    "<div class='col def'>" +
-                                        "<p>" + stat4val + "</p>" +
-                                        "<p>" + stat4name + "</p>" +
+                                    "<div class='col hp'>" +
+                                        "<p>" + stat6val + "</p>" +
+                                        "<p>" + stat6name + "</p>" +
                                     "</div>" +
                                     "<div class='col att'>" +
                                         "<p>" + stat5val + "</p>" +
                                         "<p>" + stat5name + "</p>" +
                                     "</div>" +
-                                    "<div class='col hp'>" +
-                                        "<p>" + stat6val + "</p>" +
-                                        "<p>" + stat6name + "</p>" +
+                                    "<div class='col def'>" +
+                                        "<p>" + stat4val + "</p>" +
+                                        "<p>" + stat4name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col spa'>" +
+                                        "<p>" + stat3val + "</p>" +
+                                        "<p>" + stat3name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col spcd'>" +
+                                        "<p>" + stat2val + "</p>" +
+                                        "<p>" + stat2name + "</p>" +
+                                    "</div>" +
+                                    "<div class='col spd'>" +
+                                        "<p>" + stat1val + "</p>" +
+                                        "<p>" + stat1name + "</p>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -274,4 +278,9 @@ function scrollToTop() {
     $('html, body').animate({
         scrollTop: "0px"
     }, 600);
+}
+
+function showBackButton() {
+    console.log('test');
+    $('.go-back').addClass('active');
 }
