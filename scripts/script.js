@@ -1,6 +1,7 @@
 let default_api_url = "https://pokeapi.co/api/v2/";
 let per_page = 20;
 let url, region;
+let is_detail;
 
 $(window).on("load", () => {
     initialize();
@@ -29,12 +30,23 @@ function loadEvents() {
         removeActiveRegions();
         loadPokemonInfo(undefined, region);
     });
+
+    $(document).on("click", ".goto-home", () => {
+        goToHome();
+    });
 }
 
 function checkPageToLoad() {
     if (getUrlVars().id) {
+        is_detail = true;
         loadPokemonInfoDetailPage(getUrlVars().id);
         showBackButton();
+
+        let base_url = location.href.split("?")[0];
+        let next_url = base_url + "?id=" + (parseInt(getUrlVars().id) + 1);
+        let previous_url = base_url + "?id=" + (parseInt(getUrlVars().id) - 1);
+
+        loadButtons(previous_url, next_url);
     } else {
         loadRegions();
         loadPokemonInfo();
@@ -124,8 +136,16 @@ function loadButtons(previous_url, next_url) {
 
 function paginate(that) {
     let url = $(that).attr('data-url');
-    if (url === undefined) { return; }
-    loadPokemonInfo(url);
+    if (url === undefined) {
+        return;
+    }
+
+    if (!is_detail) {
+        loadPokemonInfo(url);
+    } else {
+        console.log(url);
+        window.location = url;
+    }
 }
 
 function loadRegions() {
@@ -283,4 +303,8 @@ function scrollToTop() {
 function showBackButton() {
     console.log('test');
     $('.go-back').addClass('active');
+}
+
+function goToHome() {
+    window.location = location.href.split("?")[0];
 }
