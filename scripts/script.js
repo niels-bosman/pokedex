@@ -3,7 +3,7 @@ let per_page = 20;
 let url, region;
 let is_detail;
 
-$(window).on("load", () => {
+$(() => {
     initialize();
 });
 
@@ -184,7 +184,6 @@ function loadPokemonInfoDetailPage(id) {
         addPokemonDetailElement(id, name, sprite, type, baseAbility, secondAbility, stat_value[0], stat_name[0], stat_value[1], stat_name[1], stat_value[2], stat_name[2], stat_value[3], stat_name[3], stat_value[4], stat_name[4], stat_value[5], stat_name[5]);
         setCardAttributes(id, type);
     });
-
 }
 
 function loadButtons(previous_url, next_url) {
