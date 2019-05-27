@@ -79,18 +79,18 @@ function loadPokemonInfo(updated_url, updated_region) {
             for (let i = 0; i < per_page; i++) {
                 let name = data.results[i].name;
                 let id = data.results[i].url.substr(4).split("/")[6];
+                let src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
-                addPokemonElement(id, name);
+                addPokemonElement(id, name, src);
 
                 $.ajax({
                     dataType: "json",
                     url: data.results[i].url,
                 }).done((data) => {
-                    let src = data.sprites.front_default;
                     let type = data.types[0].type.name;
                     let id = data.id;
 
-                    setCardAttributes(id, src, type);
+                    setCardAttributes(id, type);
                 });
             }
 
@@ -133,8 +133,9 @@ function loadPokemonInfo(updated_url, updated_region) {
             for (let i = 0; i < data.pokemon_entries.length; i++) {
                 let name = data.pokemon_entries[i].pokemon_species.name;
                 let id = data.pokemon_entries[i].pokemon_species.url.substr(4).split("/")[6];
+                let src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + id + ".png";
 
-                addPokemonElement(id, name);
+                addPokemonElement(id, name, src);
 
                 $.ajax({
                     dataType: "json",
@@ -144,7 +145,7 @@ function loadPokemonInfo(updated_url, updated_region) {
                     let type = data.types[0].type.name;
                     let id = data.id;
 
-                    setCardAttributes(id, src, type);
+                    setCardAttributes(id, type);
                 });
             }
         });
@@ -258,7 +259,7 @@ function setAPIUrl(updated_url) {
     }
 }
 
-function addPokemonElement(id, name) {
+function addPokemonElement(id, name, src) {
 
     $('.content').append(
         "<div class='col card-wrap'>" +
@@ -266,7 +267,7 @@ function addPokemonElement(id, name) {
                 "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
                     "<div class='card-header'>" + name + "</div>" +
                     "<div class='card-body'>" +
-                        "<img draggable='false' class='pokemon-image'>" +
+                        "<img draggable='false' class='pokemon-image' src='" + src + "'>" +
                     "</div>" +
                     "<div class='card-footer type'></div>" +
                 "</div>" +
@@ -346,8 +347,7 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
     );
 }
 
-function setCardAttributes(id, src, type) {
-    $(".card-single[data-id='" + id + "'] .pokemon-image").attr("src", src);
+function setCardAttributes(id, type) {
     $(".card-single[data-id='" + id + "'] .card-header").addClass("background-color-" + type);
     $(".card-single[data-id='" + id + "'] .type").text("#" + id);
 }
