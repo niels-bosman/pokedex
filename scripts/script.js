@@ -23,12 +23,14 @@ function loadEvents() {
         removeActiveRegions();
         setActiveRegion(this);
         loadPokemonInfo(undefined, region);
+        $('.pagination').fadeOut();
     });
 
     $(document).on("click", "#clear-region", () => {
         unsetRegion();
         removeActiveRegions();
         loadPokemonInfo(undefined, region);
+        $('.pagination').fadeIn();
     });
 
     $(document).on("click", ".goto-home", () => {
@@ -95,7 +97,57 @@ function loadPokemonInfo(updated_url, updated_region) {
             loadButtons(data.previous, data.next);
         });
     } else {
-        console.log("Region selected!");
+
+        let actual_region;
+
+        switch (parseInt(updated_region)) {
+            case 0:
+                actual_region = 2;
+                break;
+            case 1:
+                actual_region = 3;
+                break;
+            case 2:
+                actual_region = 4;
+                break;
+            case 3:
+                actual_region = 5;
+                break;
+            case 4:
+                actual_region = 8;
+                break;
+            case 5:
+                actual_region = 12;
+                break;
+            default:
+                actual_region = 1;
+        }
+
+        $.ajax({
+            dataType: "json",
+            url: default_api_url + 'pokedex/' + actual_region,
+        }).done((data) => {
+
+            $('.content').html('');
+
+            for (let i = 0; i < data.pokemon_entries.length; i++) {
+                let name = data.pokemon_entries[i].pokemon_species.name;
+                let id = data.pokemon_entries[i].pokemon_species.url.substr(4).split("/")[6];
+
+                addPokemonElement(id, name);
+
+                $.ajax({
+                    dataType: "json",
+                    url: default_api_url + "pokemon/" + id,
+                }).done((data) => {
+                    let src = data.sprites.front_default;
+                    let type = data.types[0].type.name;
+                    let id = data.id;
+
+                    setCardAttributes(id, src, type);
+                });
+            }
+        });
     }
 }
 
@@ -106,13 +158,19 @@ function loadPokemonInfoDetailPage(id) {
         dataType: "json",
         url: url,
     }).done((data) => {
+        let baseAbility = '';
+        let secondAbility = '';
         let id = data.id;
         let name = data.name;
         let sprite = data.sprites.front_default;
         let type = data.types[0].type.name;
-        let baseAbility = data.abilities[0].ability.name;
-        let secondAbility = data.abilities[1].ability.name;
 
+        if (data.abilities.length === 1) {
+            baseAbility = data.abilities[0].ability.name;
+        } else if (data.abilities.length >= 2) {
+            baseAbility = data.abilities[0].ability.name;
+            secondAbility = data.abilities[1].ability.name;
+        }
 
         var stat_value = [];
         var stat_name = [];
@@ -155,7 +213,7 @@ function loadRegions() {
     }).done((data) => {
         let regions = $('.regions');
 
-        for (let i = 0; i < data.count; i++) {
+        for (let i = 0; i < data.count - 1; i++) {
             let region = data.results[i].name;
             $(regions).append(
                 "<div class='single-region'>" +
@@ -201,6 +259,7 @@ function setAPIUrl(updated_url) {
 }
 
 function addPokemonElement(id, name) {
+
     $('.content').append(
         "<div class='col card-wrap'>" +
             "<a class='pokemon-link' href='?id=" + id + "'>" +

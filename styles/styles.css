@@ -79,6 +79,7 @@
 }
 
 .card-body {
+    min-height: 128px;
     padding: 1em;
     background-color: rgba(0, 0, 0, .03);
 }
