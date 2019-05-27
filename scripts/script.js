@@ -181,8 +181,8 @@ function loadPokemonInfoDetailPage(id) {
             stat_name[i] = data.stats[i].stat.name;
         }
 
-        addPokemonDetailElement(id, name, type, baseAbility, secondAbility, stat_value[0], stat_name[0], stat_value[1], stat_name[1], stat_value[2], stat_name[2], stat_value[3], stat_name[3], stat_value[4], stat_name[4], stat_value[5], stat_name[5]);
-        setCardAttributes(id, sprite, type);
+        addPokemonDetailElement(id, name, sprite, type, baseAbility, secondAbility, stat_value[0], stat_name[0], stat_value[1], stat_name[1], stat_value[2], stat_name[2], stat_value[3], stat_name[3], stat_value[4], stat_name[4], stat_value[5], stat_name[5]);
+        setCardAttributes(id, type);
     });
 
 }
@@ -276,7 +276,7 @@ function addPokemonElement(id, name, src) {
     );
 }
 
-function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, stat1name, stat2val, stat2name, stat3val, stat3name, stat4val, stat4name, stat5val, stat5name, stat6val, stat6name) {
+function addPokemonDetailElement(id, name, sprite, type, ability1, ability2, stat1val, stat1name, stat2val, stat2name, stat3val, stat3name, stat4val, stat4name, stat5val, stat5name, stat6val, stat6name) {
     $('.content').append(
         "<div class='col card-wrap'>" +
             "<div class='card card-single' data-id='" + id + "' data-name='" + name + "'>" +
@@ -287,7 +287,7 @@ function addPokemonDetailElement(id, name, type, ability1, ability2, stat1val, s
                             "<div>" +
                                 "<strong>Pokemon</strong>" +
                             "</div>" +
-                            "<img draggable='false' class='pokemon-image'>" +
+                            "<img draggable='false' class='pokemon-image' src='" + sprite + "'>" +
                         "</div>" +
                         "<div class='col-md-2'>" +
                             "<div>" +
