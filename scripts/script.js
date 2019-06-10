@@ -197,11 +197,10 @@ function paginate(that) {
         return;
     }
 
-    if (!is_detail) {
-        loadPokemonInfo(url);
-    } else {
-        console.log(url);
+    if (is_detail) {
         window.location = url;
+    } else {
+        loadPokemonInfo(url);
     }
 }
 

@@ -1,3 +1,7 @@
+::selection {
+    background: rgba(0, 0, 0, 0.2);
+}
+
 .heading {
     margin: 2em 0 3em;
     font-family: Pokemon, serif;
